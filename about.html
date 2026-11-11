@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Hakkında — ArduinoLab</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="logo">⚡ ArduinoLab</a>
+      <div class="nav-links">
+        <a href="index.html">Anasayfa</a>
+        <a href="index.html#projeler">Projeler</a>
+        <a href="about.html" class="active-link">Hakkında</a>
+      </div>
+      <div class="nav-actions">
+        <button class="theme-btn" onclick="toggleTheme()" title="Tema Değiştir">🌙</button>
+        <button class="hamburger" onclick="toggleMenu()">☰</button>
+      </div>
+    </div>
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="index.html">Anasayfa</a>
+      <a href="index.html#projeler">Projeler</a>
+      <a href="about.html">Hakkında</a>
+    </div>
+  </nav>
+
+  <!-- HAKKINDA HERO -->
+  <section class="about-hero">
+    <div class="about-hero-inner">
+      <div class="about-avatar">⚡</div>
+      <h1>Hakkında</h1>
+      <p>Bu site, Arduino ile elektronik öğrenmek isteyenlere adım adım rehberlik etmek için yapıldı.</p>
+    </div>
+  </section>
+
+  <!-- HAKKINDA İÇERİK -->
+  <main class="about-main">
+
+    <section class="about-card">
+      <h2>🎯 Sitenin Amacı</h2>
+      <p>
+        Arduino ile başlamak isteyenler için en büyük engel, nereden başlayacaklarını bilememektir.
+        Bu site tam olarak bu sorunu çözmek için tasarlandı. LED yakmaktan oyun geliştirmeye,
+        sensör kullanımından motor kontrolüne kadar pek çok proje burada seni bekliyor.
+      </p>
+      <p>
+        Her projenin içinde <strong>malzeme listesi</strong>, <strong>devre bağlantı şeması</strong>,
+        <strong>adım adım yapım rehberi</strong>, <strong>ipuçları</strong> ve
+        <strong>kopyalanabilir Arduino kodu</strong> bulunur.
+      </p>
+    </section>
+
+    <section class="about-card">
+      <h2>📚 Projeler Hakkında</h2>
+      <div class="about-levels">
+        <div class="level-item">
+          <div class="level-stars">
+            <span class="star filled">★</span><span class="star">★</span><span class="star">★</span>
+          </div>
+          <div>
+            <strong>Kolay</strong>
+            <p>Temel elektronik bilgisiyle yapılabilir. Başlangıç için ideal.</p>
+          </div>
+        </div>
+        <div class="level-item">
+          <div class="level-stars">
+            <span class="star filled">★</span><span class="star filled">★</span><span class="star">★</span>
+          </div>
+          <div>
+            <strong>Orta</strong>
+            <p>Sensör veya ekran kullanımı gerektirir. Temel bilgi yeterli.</p>
+          </div>
+        </div>
+        <div class="level-item">
+          <div class="level-stars">
+            <span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span>
+          </div>
+          <div>
+            <strong>Zor</strong>
+            <p>Birden fazla bileşen ve kütüphane kullanımı gerektirir.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="about-card">
+      <h2>🔧 Kullanılan Teknolojiler</h2>
+      <div class="tech-grid">
+        <div class="tech-item"><span class="tech-icon">🔌</span><span>Arduino Uno</span></div>
+        <div class="tech-item"><span class="tech-icon">📟</span><span>C++ (Arduino IDE)</span></div>
+        <div class="tech-item"><span class="tech-icon">🌐</span><span>HTML / CSS / JS</span></div>
+        <div class="tech-item"><span class="tech-icon">📡</span><span>HC-SR04, DHT11, PIR</span></div>
+        <div class="tech-item"><span class="tech-icon">📺</span><span>OLED SSD1306, LCD 16x2</span></div>
+        <div class="tech-item"><span class="tech-icon">⚙️</span><span>Servo Motor, Buzzer</span></div>
+      </div>
+    </section>
+
+    <section class="about-card">
+      <h2>🚀 Planlanan Projeler</h2>
+      <ul class="planned-list">
+        <li>🌈 RGB LED kontrolü</li>
+        <li>📶 Bluetooth ile LED kontrolü (HC-05)</li>
+        <li>🌊 Su seviyesi sensörü</li>
+        <li>🔐 RFID kart okuyucu</li>
+        <li>🕹️ Joystick kontrollü proje</li>
+        <li>📷 IR uzaktan kumanda</li>
+      </ul>
+    </section>
+
+    <!-- BY KEREM TUTAL -->
+    <div class="by-credit">
+      <span>by</span>
+      <strong>Kerem Tutal</strong>
+    </div>
+
+  </main>
+
+  <footer class="footer">
+    <p>⚡ ArduinoLab © 2026 — Öğrenmek için yapıldı.</p>
+  </footer>
+
+  <script>
+    function toggleTheme() {
+      const html = document.documentElement;
+      const isDark = html.getAttribute('data-theme') === 'dark';
+      html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+      document.querySelector('.theme-btn').textContent = isDark ? '🌙' : '☀️';
+      localStorage.setItem('theme', isDark ? 'light' : 'dark');
+    }
+    function toggleMenu() {
+      document.getElementById('mobileMenu').classList.toggle('open');
+    }
+    const saved = localStorage.getItem('theme');
+    if (saved === 'dark') {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      document.querySelector('.theme-btn').textContent = '☀️';
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ArduinoLab</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="logo">⚡ ArduinoLab</a>
+      <div class="nav-links">
+        <a href="index.html">Anasayfa</a>
+        <a href="#projeler">Projeler</a>
+        <a href="about.html">Hakkında</a>
+      </div>
+      <div class="nav-actions">
+        <button class="theme-btn" onclick="toggleTheme()" title="Tema Değiştir">🌙</button>
+        <button class="hamburger" onclick="toggleMenu()">☰</button>
+      </div>
+    </div>
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="index.html">Anasayfa</a>
+      <a href="#projeler">Projeler</a>
+      <a href="about.html">Hakkında</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <h1>Arduino ile Neler Yapabilirsin?</h1>
+    <p>Adım adım projeler, devre şemaları ve hazır kodlarla öğren.</p>
+    <a href="#projeler" class="btn">Projeleri Keşfet</a>
+  </section>
+
+  <!-- ARAMA + FİLTRE -->
+  <section class="toolbar" id="projeler">
+    <div class="search-wrap">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="searchInput" class="search-input" placeholder="Proje ara..." oninput="searchProjects()" />
+    </div>
+    <div class="filter-bar">
+      <button class="filter-btn active" onclick="filterProjects('all', this)">Tümü</button>
+      <button class="filter-btn" onclick="filterProjects('baslangic', this)">Başlangıç</button>
+      <button class="filter-btn" onclick="filterProjects('sensor', this)">Sensör</button>
+      <button class="filter-btn" onclick="filterProjects('ekran', this)">Ekran</button>
+      <button class="filter-btn" onclick="filterProjects('motor', this)">Motor</button>
+      <button class="filter-btn" onclick="filterProjects('oyun', this)">Oyun</button>
+    </div>
+  </section>
+
+  <!-- PROJE SAYACI -->
+  <div class="result-count" id="resultCount"></div>
+
+  <!-- PROJELER -->
+  <section class="projects-grid" id="projectsGrid">
+
+    <div class="card" data-category="baslangic" data-title="led yakma" onclick="openModal('led')">
+      <div class="card-icon">💡</div>
+      <div class="card-info">
+        <span class="card-tag baslangic">Başlangıç</span>
+        <div class="difficulty">
+          <span class="star filled">★</span><span class="star">★</span><span class="star">★</span>
+          <span class="diff-label">Kolay</span>
+        </div>
+        <h2>LED Yakma</h2>
+        <p>Arduino ile ilk adım. Bir LED'i yakıp söndür.</p>
+        <div class="card-meta">
+          <span>🔧 5 Malzeme</span>
+          <span>⏱ 5 Dakika</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" data-category="baslangic" data-title="buton ile led kontrolü" onclick="openModal('buton')">
+      <div class="card-icon">🔘</div>
+      <div class="card-info">
+        <span class="card-tag baslangic">Başlangıç</span>
+        <div class="difficulty">
+          <span class="star filled">★</span><span class="star">★</span><span class="star">★</span>
+          <span class="diff-label">Kolay</span>
+        </div>
+        <h2>Buton ile LED Kontrolü</h2>
+        <p>Butona basınca LED yansın, bırakınca sönsün.</p>
+        <div class="card-meta">
+          <span>🔧 4 Malzeme</span>
+          <span>⏱ 10 Dakika</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" data-category="sensor" data-title="mesafe ölçer hc-sr04" onclick="openModal('mesafe')">
+      <div class="card-icon">📡</div>
+      <div class="card-info">
+        <span class="card-tag sensor">Sensör</span>
+        <div class="difficulty">
+          <span class="star filled">★</span><span class="star filled">★</span><span class="star">★</span>
+          <span class="diff-label">Orta</span>
+        </div>
+        <h2>Mesafe Ölçer</h2>
+        <p>HC-SR04 ile mesafe ölç, LED ile uyarı ver.</p>
+        <div class="card-meta">
+          <span>🔧 6 Malzeme</span>
+          <span>⏱ 15 Dakika</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" data-category="sensor" data-title="sıcaklık nem sensörü dht11" onclick="openModal('dht11')">
+      <div class="card-icon">🌡️</div>
+      <div class="card-info">
+        <span class="card-tag sensor">Sensör</span>
+        <div class="difficulty">
+          <span class="star filled">★</span><span class="star filled">★</span><span class="star">★</span>
+          <span class="diff-label">Orta</span>
+        </div>
+        <h2>Sıcaklık & Nem Sensörü</h2>
+        <p>DHT11 ile ortam sıcaklığını ve nemini ölç.</p>
+        <div class="card-meta">
+          <span>🔧 4 Malzeme</span>
+          <span>⏱ 15 Dakika</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" data-category="sensor" data-title="ses sensörü alarm" onclick="openModal('ses')">
+      <div class="card-icon">🔊</div>
+      <div class="card-info">
+        <span class="card-tag sensor">Sensör</span>
+        <div class="difficulty">
+          <span class="star filled">★</span><span class="star filled">★</span><span class="star">★</span>
+          <span class="diff-label">Orta</span>
+        </div>
+        <h2>Ses Sensörü Alarm</h2>
+        <p>Ortam sesine göre LED ve buzzer ile alarm ver.</p>
+        <div class="card-meta">
+          <span>🔧 5 Malzeme</span>
+          <span>⏱ 15 Dakika</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" data-category="motor" data-title="servo motor kontrolü" onclick="openModal('servo')">
+      <div class="card-icon">⚙️</div>
+      <div class="card-info">
+        <span class="card-tag motor">Motor</span>
+        <div class="difficulty">
+          <span class="star filled">★</span><span class="star filled">★</span><span class="star">★</span>
+          <span class="diff-label">Orta</span>
+        </div>
+        <h2>Servo Motor Kontrolü</h2>
+        <p>Potansiyometre ile servo motoru istediğin açıya getir.</p>
+        <div class="card-meta">
+          <span>🔧 4 Malzeme</span>
+          <span>⏱ 20 Dakika</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" data-category="ekran" data-title="lcd ekran yazı yazdırma" onclick="openModal('lcd')">
+      <div class="card-icon">📺</div>
+      <div class="card-info">
+        <span class="card-tag ekran">Ekran</span>
+        <div class="difficulty">
+          <span class="star filled">★</span><span class="star filled">★</span><span class="star">★</span>
+          <span class="diff-label">Orta</span>
+        </div>
+        <h2>LCD Ekran Yazı Yazdırma</h2>
+        <p>16x2 LCD ekranda metin ve sayaç göster.</p>
+        <div class="card-meta">
+          <span>🔧 5 Malzeme</span>
+          <span>⏱ 20 Dakika</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" data-category="sensor" data-title="alarm sistemi pir hareket" onclick="openModal('alarm')">
+      <div class="card-icon">🚨</div>
+      <div class="card-info">
+        <span class="card-tag sensor">Sensör</span>
+        <div class="difficulty">
+          <span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span>
+          <span class="diff-label">Zor</span>
+        </div>
+        <h2>Alarm Sistemi</h2>
+        <p>PIR hareket sensörü ile otomatik alarm sistemi kur.</p>
+        <div class="card-meta">
+          <span>🔧 6 Malzeme</span>
+          <span>⏱ 25 Dakika</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" data-category="oyun" data-title="yılan oyunu oled" onclick="openModal('yilan')">
+      <div class="card-icon">🐍</div>
+      <div class="card-info">
+        <span class="card-tag oyun">Oyun</span>
+        <div class="difficulty">
+          <span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span>
+          <span class="diff-label">Zor</span>
+        </div>
+        <h2>Yılan Oyunu</h2>
+        <p>OLED ekranda yılan oyunu. Butonlarla kontrol et.</p>
+        <div class="card-meta">
+          <span>🔧 7 Malzeme</span>
+          <span>⏱ 30 Dakika</span>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- BULUNAMADI -->
+  <div class="no-results" id="noResults" style="display:none;">
+    <p>😕 Proje bulunamadı. Farklı bir şey dene.</p>
+  </div>
+
+  <!-- MODAL -->
+  <div class="modal-overlay" id="modalOverlay" onclick="closeModal()">
+    <div class="modal" id="modal" onclick="event.stopPropagation()">
+      <button class="modal-close" onclick="closeModal()">✕</button>
+      <div id="modalContent"></div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <p>⚡ ArduinoLab © 2026 — Öğrenmek için yapıldı.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
