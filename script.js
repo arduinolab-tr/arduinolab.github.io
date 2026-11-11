@@ -157,17 +157,17 @@ const projects = {
     desc: 'Arduino ile yapabileceğin en temel proje. Bir LED\'i 1 saniye aralıklarla yakıp söndür. Dijital çıkış, pinMode ve delay fonksiyonlarını öğrenmek için mükemmel başlangıç.',
     materials: ['Arduino Uno', 'LED (herhangi renk)', '220Ω Direnç', 'Breadboard', 'Jumper Kablo x2'],
     steps: [
-      'Arduino\'yu bilgisayara USB ile bağla.',
-      'Breadboard\'a LED\'i yerleştir. Uzun bacak (+) anot, kısa bacak (-) katottur.',
-      '220Ω direnci LED\'in anot bacağına seri bağla.',
-      'Direncin diğer ucunu Arduino\'nun Pin 13\'üne bağla.',
-      'LED\'in katot bacağını GND\'ye bağla.',
-      'Kodu Arduino IDE\'ye yapıştır, Upload (→) butonuna bas.',
+      'Arduino\'yu bilgisayara USB kablosuyla bağla.',
+      'LED\'i breadboard\'a tak. LED\'in iki bacağı var: uzun bacak artı (+), kısa bacak eksi (-).',
+      '220Ω direnci al, bir ucunu LED\'in uzun bacağına (+) tak.',
+      'Direncin diğer ucunu Arduino\'nun 13 numaralı deliğine bağla.',
+      'LED\'in kısa bacağını (-) Arduino\'nun GND yazan deliğine bağla.',
+      'Kodu Arduino IDE\'ye yapıştır, yükle butonuna (→) bas.',
     ],
     circuit: `<span class="com">// LED Devre Bağlantısı</span>
 <span class="com">// ─────────────────────────────────</span>
-<span class="pin">Pin 13</span>  <span class="arr">──→</span>  <span class="comp">220Ω Direnç</span>  <span class="arr">──→</span>  <span class="comp">LED Anot (+)</span>
-<span class="comp">LED Katot (-)</span>  <span class="arr">──→</span>  <span class="pin">GND</span>
+<span class="pin">Pin 13</span>  <span class="arr">──→</span>  <span class="comp">220Ω Direnç</span>  <span class="arr">──→</span>  <span class="comp">LED uzun bacak (+)</span>
+<span class="comp">LED kısa bacak (-)</span>  <span class="arr">──→</span>  <span class="pin">GND</span>
 <span class="com">// ─────────────────────────────────</span>
 <span class="com">// Pin 13 Uno'da yerleşik LED'e de bağlıdır!</span>`,
     tips: [
@@ -196,13 +196,14 @@ void loop() {
   // ── BUTON LED ──────────────────────────────────────────────────────
   buton: {
     id: 'buton', icon: '🔘', title: 'Buton ile LED Kontrolü',
-    desc: 'Bir butona basıldığında LED yanar, bırakıldığında söner. digitalRead ve INPUT_PULLUP kavramlarını öğren.',
+    desc: 'Bir butona basıldığında LED yanar, bırakıldığında söner. Buton kullanımını ve dijital okumayı öğren.',
     materials: ['Arduino Uno', 'LED', '220Ω Direnç', 'Anlık Buton (Tact Switch)', 'Breadboard', 'Jumper Kablo x4'],
     steps: [
-      'LED\'i 220Ω direnç üzerinden Pin 13\'e, GND\'ye bağla.',
-      'Butonun bir ucunu Pin 2\'ye, diğer ucunu GND\'ye bağla.',
-      'INPUT_PULLUP sayesinde harici dirence gerek yoktur.',
-      'Kodu yükle ve butona bas, LED\'in yandığını gör.',
+      'LED\'in uzun bacağını (+) 220Ω dirençle birlikte Pin 13\'e bağla.',
+      'LED\'in kısa bacağını (-) GND deliğine bağla.',
+      'Butonun bir bacağını Pin 2\'ye, karşı bacağını GND\'ye bağla.',
+      'Harici dirence gerek yok, Arduino içten hallediyor.',
+      'Kodu yükle, butona bas ve LED\'in yandığını gör.',
     ],
     circuit: `<span class="com">// Buton + LED Bağlantısı</span>
 <span class="com">// ─────────────────────────────────</span>
@@ -212,9 +213,9 @@ void loop() {
 <span class="comp">Buton 1. ucu</span>  <span class="arr">──→</span>  <span class="pin">Pin 2</span>
 <span class="comp">Buton 2. ucu</span>  <span class="arr">──→</span>  <span class="pin">GND</span>`,
     tips: [
-      'INPUT_PULLUP kullandığında pin varsayılan olarak HIGH okur. Butona basınca LOW olur.',
-      'Butonun 4 bacağı vardır. Karşılıklı bacaklar birbirine bağlıdır, dikkatli bağla.',
-      'Farklı bir pin kullanmak istersen kodda buttonPin değerini değiştir.',
+      'Butona basınca Arduino LOW (0) okur, bırakınca HIGH (1) okur — bu biraz ters gibi görünebilir ama normal.',
+      'Butonun 4 bacağı vardır. Karşılıklı (çapraz) bacaklar birbirine bağlıdır, dikkatli bağla.',
+      'Farklı bir pin kullanmak istersen kodda buttonPin = 2 satırındaki 2 rakamını değiştir.',
     ],
     code: `// Buton ile LED Kontrolü
 
@@ -245,11 +246,14 @@ void loop() {
     desc: 'HC-SR04 ultrasonik sensör ile mesafe ölç. Engel 50 cm\'den yaklaştıkça LED daha hızlı yanar. Serial Monitor\'dan anlık mesafeyi izle.',
     materials: ['Arduino Uno', 'HC-SR04 Ultrasonik Sensör', 'LED', '220Ω Direnç', 'Breadboard', 'Jumper Kablo x6'],
     steps: [
-      'HC-SR04 sensörünü breadboard\'a yerleştir.',
-      'VCC → 5V, GND → GND, TRIG → Pin 9, ECHO → Pin 8 olarak bağla.',
-      'LED\'i 220Ω direnç üzerinden Pin 3\'e bağla, katodunu GND\'ye.',
-      'Kodu yükle, Serial Monitor\'ı aç (9600 baud).',
-      'Elinle sensöre yaklaş, LED\'in hızlandığını ve mesafenin ekranda değiştiğini gör.',
+      'HC-SR04 sensörünü breadboard\'a tak.',
+      'Sensörün VCC yazısını Arduino\'nun 5V deliğine bağla.',
+      'Sensörün GND yazısını Arduino\'nun GND deliğine bağla.',
+      'Sensörün TRIG yazısını Arduino\'nun 9 numaralı deliğine bağla.',
+      'Sensörün ECHO yazısını Arduino\'nun 8 numaralı deliğine bağla.',
+      'LED\'in uzun bacağını (+) 220Ω direnç üzerinden Pin 3\'e, kısa bacağını (-) GND\'ye bağla.',
+      'Kodu yükle, Arduino IDE\'de Serial Monitor\'ı aç (sağ üstteki büyüteç simgesi).',
+      'Elinle sensöre yaklaş, LED\'in hızlandığını gör.',
     ],
     circuit: `<span class="com">// HC-SR04 + LED Bağlantısı</span>
 <span class="com">// ──────────────────────────────</span>
@@ -317,11 +321,13 @@ void loop() {
     desc: 'DHT11 sensörü ile ortam sıcaklığını ve nem oranını ölç. Veriler Serial Monitor\'da anlık gösterilir.',
     materials: ['Arduino Uno', 'DHT11 Sensör', '10kΩ Direnç', 'Breadboard', 'Jumper Kablo x3'],
     steps: [
-      'DHT11\'i breadboard\'a yerleştir. Önden bakınca: 1.pin VCC, 2.pin DATA, 4.pin GND.',
-      'VCC → 5V, GND → GND bağla.',
-      'DATA pinini Pin 2\'ye bağla. DATA ile VCC arasına 10kΩ pull-up direnci koy.',
-      'Arduino IDE\'de DHT sensor library\'yi yükle (Manage Libraries → DHT).',
-      'Kodu yükle, Serial Monitor\'ı 9600 baud ile aç.',
+      'DHT11 sensörünün önden bakınca: 1. bacak VCC (5V), 2. bacak DATA, 4. bacak GND\'ye bağlanır.',
+      'VCC yazılı bacağı Arduino\'nun 5V deliğine bağla.',
+      'GND yazılı bacağı Arduino\'nun GND deliğine bağla.',
+      'DATA bacağını Arduino\'nun 2 numaralı deliğine bağla.',
+      'DATA bacağı ile VCC arasına 10kΩ direnç tak (sensörün düzgün çalışması için şart).',
+      'Arduino IDE\'de Manage Libraries\'e gir, "DHT sensor library" yükle.',
+      'Kodu yükle, Serial Monitor\'ı aç ve sıcaklığı izle.',
     ],
     circuit: `<span class="com">// DHT11 Bağlantısı</span>
 <span class="com">// ──────────────────────────────</span>
@@ -331,9 +337,9 @@ void loop() {
 <span class="pin">GND</span>     <span class="arr">──→</span>  <span class="pin">GND</span>
 <span class="com">// DATA ile VCC arasına 10kΩ direnç</span>`,
     tips: [
-      'DHT11 ölçüm aralığı: 0-50°C sıcaklık, %20-90 nem.',
-      '10kΩ pull-up direnci olmadan sensör düzgün çalışmayabilir.',
-      'Kütüphane olarak "DHT sensor library by Adafruit" ı yükle.',
+      'Ölçüm aralığı: 0°C ile 50°C arası sıcaklık, %20 ile %90 arası nem.',
+      '10kΩ direnç olmadan sensör çalışmayabilir, mutlaka tak.',
+      'Kütüphane yüklerken "DHT sensor library by Adafruit" olanı seç.',
     ],
     code: `// DHT11 Sıcaklık & Nem Ölçer
 #include <DHT.h>
@@ -392,9 +398,9 @@ void loop() {
 <span class="pin">Pin 6</span>   <span class="arr">──→</span>  <span class="comp">Buzzer(+)</span>
 <span class="comp">Buzzer(-)</span> <span class="arr">──→</span>  <span class="pin">GND</span>`,
     tips: [
-      'Sensör üzerindeki mavi potansiyometre ile hassasiyet ayarlanır. Saat yönü = daha hassas.',
-      'DO pini dijital sinyal verir (0 veya 1). AO analog veri verir, daha hassas ölçüm için kullanılabilir.',
-      'Alarm süresini uzatmak için alarmDuration değerini artır.',
+      'Sensörün üzerindeki mavi vida gibi şeyi döndürerek hassasiyeti ayarlayabilirsin. Saat yönüne döndürdükçe daha hassas olur.',
+      'Sensörün 2 çıkışı var: DO dijital (0 veya 1), AO analog (0-1023 arası). Biz DO kullandık.',
+      'Alarmın ne kadar süre çalacağını değiştirmek için alarmDuration = 500 satırındaki 500 rakamını değiştir.',
     ],
     code: `// Ses Sensörü Alarm
 // KY-038 ses sensörü ile LED + Buzzer kontrolü
@@ -430,10 +436,11 @@ void loop() {
     desc: 'Potansiyometre ile servo motoru 0°-180° arasında istediğin açıya getir. Servo kütüphanesini ve analogRead kullanımını öğren.',
     materials: ['Arduino Uno', 'SG90 Servo Motor', '10kΩ Potansiyometre', 'Breadboard', 'Jumper Kablo x5'],
     steps: [
-      'Servo motorun kırmızı kablosunu 5V\'a, kahverengi/siyahı GND\'ye, sarı/turuncu sinyal kablosunu Pin 9\'a bağla.',
-      'Potansiyometrenin sol ucunu GND\'ye, sağ ucunu 5V\'a, ortasını A0\'a bağla.',
-      'Kodu yükle.',
-      'Potansiyometreyi çevir, servo motorun döndüğünü gör.',
+      'Servo motorun kırmızı kablosunu Arduino\'nun 5V deliğine bağla.',
+      'Servo motorun kahverengi veya siyah kablosunu Arduino\'nun GND deliğine bağla.',
+      'Servo motorun sarı veya turuncu kablosunu Arduino\'nun 9 numaralı deliğine bağla.',
+      'Potansiyometrenin sol bacağını GND\'ye, sağ bacağını 5V\'a, ortadaki bacağını A0\'a bağla.',
+      'Kodu yükle, potansiyometreyi döndür ve motorun döndüğünü gör.',
     ],
     circuit: `<span class="com">// Servo + Potansiyometre</span>
 <span class="comp">Servo</span>
@@ -446,9 +453,9 @@ void loop() {
 <span class="pin">Sağ uç</span>   <span class="arr">──→</span>  <span class="pin">5V</span>
 <span class="pin">Orta</span>     <span class="arr">──→</span>  <span class="pin">A0</span>`,
     tips: [
-      'SG90 servo motoru 5V\'ta çalışır. Daha büyük servolar için harici güç kaynağı kullan.',
-      'Servo kütüphanesi Arduino IDE\'ye dahildir, ekstra kurulum gerekmez.',
-      'map() fonksiyonu 0-1023 analog değeri 0-180 dereceye dönüştürür.',
+      'Servo motor 3 kablolu gelir: kırmızı=güç, kahve/siyah=toprak, sarı/turuncu=kontrol.',
+      'Servo kütüphanesi Arduino IDE\'ye zaten yüklü gelir, ekstra kurulum gerekmez.',
+      'Potansiyometre bir ayar düğmesidir — döndürdükçe motor açısı değişir (0° ile 180° arası).',
     ],
     code: `// Servo Motor Kontrolü
 // Potansiyometre ile 0-180 derece
@@ -486,11 +493,13 @@ void loop() {
     desc: '16x2 LCD ekranda metin ve sayaç göster. I2C modülü ile sadece 2 kablo yeterli.',
     materials: ['Arduino Uno', '16x2 LCD Ekran', 'I2C LCD Modülü (PCF8574)', 'Jumper Kablo x4'],
     steps: [
-      'I2C modülünü LCD\'nin arkasına tak (lehimli veya soketli).',
-      'VCC → 5V, GND → GND, SDA → A4, SCL → A5 bağla.',
+      'I2C modülü LCD ekranın arkasına takılır (genelde satın alınca takılı gelir).',
+      'Modülün VCC yazısını Arduino\'nun 5V deliğine bağla.',
+      'Modülün GND yazısını Arduino\'nun GND deliğine bağla.',
+      'Modülün SDA yazısını Arduino\'nun A4 deliğine bağla.',
+      'Modülün SCL yazısını Arduino\'nun A5 deliğine bağla.',
       'Arduino IDE\'de "LiquidCrystal I2C" kütüphanesini yükle.',
-      'I2C adresini bulmak için I2C Scanner kodunu çalıştır (genellikle 0x27 veya 0x3F).',
-      'Kodu yükle, ekranda yazının belirdiğini gör.',
+      'Kodu yükle, ekranda yazının çıktığını gör.',
     ],
     circuit: `<span class="com">// LCD I2C Bağlantısı</span>
 <span class="com">// (sadece 4 kablo!)</span>
@@ -500,9 +509,9 @@ void loop() {
 <span class="pin">SDA</span>        <span class="arr">──→</span>  <span class="pin">A4</span>
 <span class="pin">SCL</span>        <span class="arr">──→</span>  <span class="pin">A5</span>`,
     tips: [
-      'I2C adresi 0x27 veya 0x3F olabilir. Çalışmazsa diğerini dene.',
-      'Ekranda bir şey görünmüyorsa modül üzerindeki potansiyometreyle kontrast ayarla.',
-      '"LiquidCrystal I2C" kütüphanesini Frank de Brabander\'ın versiyonunu kullan.',
+      'Ekran çalışmıyorsa kodda 0x27 yerine 0x3F yaz, her LCD\'nin adresi biraz farklı olabilir.',
+      'Ekranda yazı görünmüyorsa modülün üzerindeki küçük vida gibi şeyi döndür, kontrast ayarlanır.',
+      'Kütüphane yüklerken "LiquidCrystal I2C by Frank de Brabander" olanı seç.',
     ],
     code: `// LCD I2C Yazı + Sayaç
 #include <Wire.h>
@@ -540,10 +549,12 @@ void loop() {
     desc: 'PIR hareket sensörü ile otomatik alarm sistemi. Hareket algılandığında LED yanar, buzzer öter ve Serial Monitor\'a mesaj gelir.',
     materials: ['Arduino Uno', 'PIR Hareket Sensörü (HC-SR501)', 'LED (kırmızı)', 'Buzzer', '220Ω Direnç', 'Jumper Kablo'],
     steps: [
-      'PIR sensörün VCC → 5V, GND → GND, OUT → Pin 7 bağla.',
-      'LED\'i 220Ω direnç üzerinden Pin 13\'e bağla.',
-      'Buzzer\'ın + ucunu Pin 6\'ya bağla.',
-      'Kodu yükle. Sensör ilk 30-60 saniyede kendini kalibre eder, bu süre boyunca hareket etme.',
+      'PIR sensörün üzerinde 3 bacak vardır. VCC yazısını Arduino\'nun 5V deliğine bağla.',
+      'PIR sensörün GND yazısını Arduino\'nun GND deliğine bağla.',
+      'PIR sensörün OUT yazısını Arduino\'nun 7 numaralı deliğine bağla.',
+      'LED\'in uzun bacağını (+) 220Ω direnç üzerinden Pin 13\'e, kısa bacağını (-) GND\'ye bağla.',
+      'Buzzer\'ın üzerinde + işareti olan bacağını Pin 6\'ya, diğer bacağını GND\'ye bağla.',
+      'Kodu yükle. Sensör ilk açılışta 30-60 saniye bekler, bu sürede hareket etme.',
       'Sensörün önünden geç, alarm devreye girsin.',
     ],
     circuit: `<span class="com">// PIR Alarm Sistemi</span>
@@ -552,13 +563,13 @@ void loop() {
 <span class="pin">GND</span>   <span class="arr">──→</span>  <span class="pin">GND</span>
 <span class="pin">OUT</span>   <span class="arr">──→</span>  <span class="pin">Pin 7</span>
 <span class="com">// ──────────────────────────────</span>
-<span class="pin">Pin 13</span>  <span class="arr">──→</span>  <span class="comp">220Ω</span>  <span class="arr">──→</span>  <span class="comp">LED(+)</span>
-<span class="comp">LED(-)</span>  <span class="arr">──→</span>  <span class="pin">GND</span>
+<span class="pin">Pin 13</span>  <span class="arr">──→</span>  <span class="comp">220Ω</span>  <span class="arr">──→</span>  <span class="comp">LED uzun bacak (+)</span>
+<span class="comp">LED kısa bacak (-)</span>  <span class="arr">──→</span>  <span class="pin">GND</span>
 <span class="pin">Pin 6</span>   <span class="arr">──→</span>  <span class="comp">Buzzer(+)</span>
 <span class="comp">Buzzer(-)</span> <span class="arr">──→</span>  <span class="pin">GND</span>`,
     tips: [
-      'PIR sensör ilk açıldığında 30-60 saniyelik kalibrasyon süresi ister.',
-      'Sensörün arkasındaki 2 potansiyometre: biri hassasiyet, diğeri gecikme süresi ayarlar.',
+      'Sensör ilk açılışta 30-60 saniye bekler, bu süre zarfında hareket etme yoksa yanlış alarm verir.',
+      'Sensörün arkasında 2 küçük vida var: biri ne kadar uzaktan algılayacağını, diğeri alarmın kaç saniye çalacağını ayarlar.',
       'Sensörün algılama açısı ~110°, menzili ~7 metredir.',
     ],
     code: `// PIR Hareket Sensörü Alarm
